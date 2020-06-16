@@ -168,3 +168,36 @@ in走索引，not in索引失效。
 
 ### 锁
 
+# 零碎小计
+
+### 1、存储过程例子
+
+```sql
+-- 创建存储过程
+CREATE PROCEDURE insertmem()
+BEGIN
+DECLARE num INT;
+DECLARE age INT;
+SET num = 1;
+WHILE num<=10 DO   #301 1585817869391
+		if num <= 3 THEN
+			set age = 22;
+		ELSEIF num > 3 THEN
+			set age = 44;
+		END IF;
+		
+		INSERT INTO `user`(`id`, `name`, `age`) VALUES (replace(uuid(),"-",""), 'AAA', age);
+
+SET num=num+1;
+END WHILE;
+END
+
+-- 调用存储过程
+CALL insertmem();   
+
+-- 删除存储过程
+DROP PROCEDURE insertmem;
+
+show create procedure insertmem;
+```
+
